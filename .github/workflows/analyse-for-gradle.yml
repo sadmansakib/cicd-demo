@@ -1,15 +1,17 @@
 name: Check project source for gradle
 on:
   workflow_call:
+    outputs:
+      gradlew:
+        description: "determines whether gradlew exists or not"
+        value: ${{ jobs.check_for_gradle.outputs.gradlew }}
 
 jobs:
-  check-for-gradle:
+  check_for_gradle:
     outputs:
       gradlew: ${{steps.gradlew-test.outputs.gradlew}}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout project sources
-        uses: actions/checkout@v4
       - id: gradlew-test
         shell: bash
         name: analyse project for gradle script
