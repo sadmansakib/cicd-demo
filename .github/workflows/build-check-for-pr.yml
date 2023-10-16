@@ -5,12 +5,12 @@ on:
       - main
 
 jobs:
+  check_for_gradle:
+    uses: ./.github/workflows/analyse-for-gradle.yml
+  check_for_maven:
+    uses: ./.github/workflows/analyse-for-maven.yml
   run_tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project source
         uses: actions/checkout@v4
-      - name: Check project for Gradle script
-        uses: ./.github/workflows/analyse-for-gradle.yml
-      - name: Check project for Maven script
-        uses: ./.github/workflows/analyse-for-maven.yml

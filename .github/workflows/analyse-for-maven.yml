@@ -12,6 +12,8 @@ jobs:
       mvnw: ${{steps.mvnw-test.outputs.mvnw}}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout project source for checking maven script
+        uses: actions/checkout@v4
       - id: mvnw-test
         shell: bash
         name: analyse project for maven script

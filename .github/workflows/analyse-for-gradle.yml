@@ -12,6 +12,8 @@ jobs:
       gradlew: ${{steps.gradlew-test.outputs.gradlew}}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout project source for checking gradle script
+        uses: actions/checkout@v4
       - id: gradlew-test
         shell: bash
         name: analyse project for gradle script
