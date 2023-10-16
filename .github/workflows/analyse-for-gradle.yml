@@ -17,6 +17,6 @@ jobs:
       - id: gradle-test
         shell: bash
         name: analyse project for gradle script
-        run: test -f gradlew && echo "gradle=true" || echo "gradle=false" >> $GITHUB_OUTPUT
+        run: test -f gradlew && echo "gradle=true" || echo "gradle=false" >> "$GITHUB_OUTPUT"
 
 

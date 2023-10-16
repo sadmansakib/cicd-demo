@@ -17,6 +17,6 @@ jobs:
       - id: maven-test
         shell: bash
         name: analyse project for maven script
-        run: test -f mvnw && echo "maven=true" || echo "maven=false" >> $GITHUB_OUTPUT
+        run: test -f mvnw && echo "maven=true" || echo "maven=false" >> "$GITHUB_OUTPUT"
 
 
