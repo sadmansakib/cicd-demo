@@ -17,7 +17,7 @@ jobs:
     needs:
       - check_for_gradle
       - check_for_maven
-    if: ${{ always() && !cancelled() && needs.build.result == 'success' }}
+    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') }}
     steps:
       - name: Print gradle variable
         run: echo gradle value -> ${{needs.check_for_gradle.outputs.gradle}}
