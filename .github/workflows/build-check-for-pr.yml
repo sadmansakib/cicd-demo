@@ -22,9 +22,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Setup gradle
-        if: ${{needs.check_for_gradle.outputs.gradlew}} == true
-        uses: gradle/gradle-build-action@v2
       - name: Run tests using gradle
         if: ${{needs.check_for_gradle.outputs.gradlew}} == true
         shell: bash
