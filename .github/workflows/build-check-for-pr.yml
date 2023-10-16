@@ -26,3 +26,7 @@ jobs:
         if: ${{needs.check_for_gradle.outputs.gradlew}} == true
         shell: bash
         run: ./gradlew test
+      - name: Run tests using maven
+        if: ${{needs.check_for_maven.outputs.mvnw}} == true
+        shell: bash
+        run: ./mvnw test
