@@ -1,22 +1,22 @@
-name: Check project source for gradle
-on:
-  workflow_call:
-    outputs:
-      gradlew:
-        description: "determines whether gradlew exists or not"
-        value: ${{ jobs.check_for_gradle.outputs.gradlew }}
-
-jobs:
-  check_for_gradle:
-    outputs:
-      gradlew: ${{steps.gradlew-test.outputs.gradlew}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout project source for checking gradle script
-        uses: actions/checkout@v4
-      - id: gradlew-test
-        shell: bash
-        name: analyse project for gradle script
-        run: test -f gradlew && echo gradlew=true || echo gradlew=false >> $GITHUB_OUTPUT
-
-
+#name: Check project source for Gradle
+#on:
+#  workflow_call:
+#    outputs:
+#      gradle:
+#        description: "determines whether gradle exists or not"
+#        value: ${{ jobs.check_for_gradle.outputs.gradle }}
+#
+#jobs:
+#  check_for_gradle:
+#    outputs:
+#      gradle: ${{steps.gradle-test.outputs.gradle}}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout project source for checking gradle script
+#        uses: actions/checkout@v4
+#      - id: gradle-test
+#        shell: bash
+#        name: analyse project for gradle script
+#        run: test -f gradlew && echo gradle=true || echo gradle=false >> $GITHUB_OUTPUT
+#
+#

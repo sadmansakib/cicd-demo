@@ -1,22 +1,22 @@
 name: Check project source for Maven
 on:
-  workflow_call:
-    outputs:
-      mvnw:
-        description: "determines whether mvnw exists or not"
-        value: ${{ jobs.check_for_maven.outputs.mvnw }}
+  push:
+#    outputs:
+#      maven:
+#        description: "determines whether maven exists or not"
+#        value: ${{ jobs.check_for_maven.outputs.maven }}
 
 jobs:
   check_for_maven:
     outputs:
-      mvnw: ${{steps.mvnw-test.outputs.mvnw}}
+      maven: ${{steps.maven-test.outputs.maven}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project source for checking maven script
         uses: actions/checkout@v4
-      - id: mvnw-test
+      - id: maven-test
         shell: bash
         name: analyse project for maven script
-        run: test -f mvnw && echo mvnw=true || echo mvnw=false >> $GITHUB_OUTPUT
+        run: test -f mvnw && echo maven=true || echo maven=false >> $GITHUB_OUTPUT
 
 
