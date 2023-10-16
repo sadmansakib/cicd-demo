@@ -20,8 +20,10 @@ jobs:
         run: |
           if test -f "mvnw"
           then
+            echo "maven=true"
             echo "maven=true" >> $GITHUB_OUTPUT
           else
+            echo "maven=false"
             echo "maven=false" >> $GITHUB_OUTPUT
           fi
 
