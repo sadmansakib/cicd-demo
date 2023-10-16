@@ -1,10 +1,10 @@
 name: Check project source for Maven
 on:
-  push:
-#    outputs:
-#      maven:
-#        description: "determines whether maven exists or not"
-#        value: ${{ jobs.check_for_maven.outputs.maven }}
+  workflow_call:
+    outputs:
+      maven:
+        description: "determines whether maven exists or not"
+        value: ${{ jobs.check_for_maven.outputs.maven }}
 
 jobs:
   check_for_maven:
@@ -17,6 +17,12 @@ jobs:
       - id: maven-test
         shell: bash
         name: analyse project for maven script
-        run: test -f mvnw && echo "maven=true" || echo "maven=false" >> "$GITHUB_OUTPUT"
+        run: |
+          if test -f "mvnw"
+          then
+            echo "maven=true" >> $GITHUB_OUTPUT
+          else
+            echo "maven=false" >> $GITHUB_OUTPUT
+          fi
 
 

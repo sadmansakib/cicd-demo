@@ -1,10 +1,10 @@
 name: Check project source for Gradle
 on:
-  push:
-#    outputs:
-#      gradle:
-#        description: "determines whether gradle exists or not"
-#        value: ${{ jobs.check_for_gradle.outputs.gradle }}
+  workflow_call:
+    outputs:
+      gradle:
+        description: "determines whether gradle exists or not"
+        value: ${{ jobs.check_for_gradle.outputs.gradle }}
 
 jobs:
   check_for_gradle:
@@ -17,6 +17,12 @@ jobs:
       - id: gradle-test
         shell: bash
         name: analyse project for gradle script
-        run: test -f gradlew && echo "gradle=true" || echo "gradle=false" >> "$GITHUB_OUTPUT"
+        run: |
+          if test -f "gradlew"
+          then
+            echo "gradle=true" >> $GITHUB_OUTPUT
+          else
+            echo "gradle=false" >> $GITHUB_OUTPUT
+          fi
 
 
