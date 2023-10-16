@@ -19,31 +19,27 @@ jobs:
       - check_for_maven
     if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') }}
     steps:
-      - name: Print gradle variable
-        run: echo gradle value -> ${{needs.check_for_gradle.outputs.gradle}}
-      - name: Print maven variable
-        run: echo maven value -> ${{needs.check_for_maven.outputs.maven}}
-#      - name: Checkout project source
-#        uses: actions/checkout@v4
-#      - name: Setup java for gradle
-#        if: ${{needs.check_for_gradle.outputs.gradle}} == true
-#        uses: actions/setup-java@v3
-#        with:
-#          distribution: temurin
-#          java-version: 17
-#          cache: 'gradle'
-#      - name: Setup java for maven
-#        if: ${{needs.check_for_maven.outputs.maven}} == true
-#        uses: actions/setup-java@v3
-#        with:
-#          distribution: temurin
-#          java-version: 17
-#          cache: 'maven'
-#      - name: Run tests using gradle
-#        if: ${{needs.check_for_gradle.outputs.gradle}} == true
-#        shell: bash
-#        run: ./gradlew test
-#      - name: Run tests using maven
-#        if: ${{needs.check_for_maven.outputs.maven}} == true
-#        shell: bash
-#        run: ./mvnw test
+      - name: Checkout project source
+        uses: actions/checkout@v4
+      - name: Setup java for gradle
+        if: ${{needs.check_for_gradle.outputs.gradle}} == true
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: 'gradle'
+      - name: Setup java for maven
+        if: ${{needs.check_for_maven.outputs.maven}} == true
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: 'maven'
+      - name: Run tests using gradle
+        if: ${{needs.check_for_gradle.outputs.gradle}} == true
+        shell: bash
+        run: ./gradlew test
+      - name: Run tests using maven
+        if: ${{needs.check_for_maven.outputs.maven}} == true
+        shell: bash
+        run: ./mvnw test
