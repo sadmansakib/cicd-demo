@@ -24,7 +24,7 @@ jobs:
       - name: Setup java for gradle
         env:
           gradle: ${{needs.check_for_gradle.outputs.gradle}}
-        if: ${{ env.gradle == true}}
+        if: ${{ env.gradle == "true"}}
         uses: actions/setup-java@v3
         with:
           distribution: temurin
@@ -33,7 +33,7 @@ jobs:
       - name: Setup java for maven
         env:
           maven: ${{needs.check_for_maven.outputs.maven}}
-        if: ${{ env.maven == true}}
+        if: ${{ env.maven == "true"}}
         uses: actions/setup-java@v3
         with:
           distribution: temurin
@@ -42,12 +42,12 @@ jobs:
       - name: Run tests using gradle
         env:
           gradle: ${{needs.check_for_gradle.outputs.gradle}}
-        if: ${{ env.gradle == true}}
+        if: ${{ env.gradle == "true"}}
         shell: bash
         run: ./gradlew test
       - name: Run tests using maven
         env:
           maven: ${{needs.check_for_maven.outputs.maven}}
-        if: ${{ env.maven == true }}
+        if: ${{ env.maven == "true" }}
         shell: bash
         run: ./mvnw test
