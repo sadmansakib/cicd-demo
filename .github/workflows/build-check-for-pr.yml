@@ -18,24 +18,24 @@ jobs:
       - name: Checkout project source
         uses: actions/checkout@v4
       - name: Setup java for gradle
-        if: ${{needs.check_for_gradle.outputs.gradlew}} == true
+        if: ${{needs.check_for_gradle.outputs.gradle}} == true
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
           cache: 'gradle'
       - name: Setup java for maven
-        if: ${{needs.check_for_maven.outputs.mvnw}} == true
+        if: ${{needs.check_for_maven.outputs.maven}} == true
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
           cache: 'maven'
       - name: Run tests using gradle
-        if: ${{needs.check_for_gradle.outputs.gradlew}} == true
+        if: ${{needs.check_for_gradle.outputs.gradle}} == true
         shell: bash
         run: ./gradlew test
       - name: Run tests using maven
-        if: ${{needs.check_for_maven.outputs.mvnw}} == true
+        if: ${{needs.check_for_maven.outputs.maven}} == true
         shell: bash
-        run: echo ${{needs.check_for_maven.outputs.mvnw}}
+        run: ./mvnw test
