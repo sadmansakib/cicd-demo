@@ -1,0 +1,19 @@
+name: Check project source for Maven
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  check-for-maven:
+    outputs:
+      mvnw: ${{steps.mvnw-test.outputs.mvnw}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project sources
+        uses: actions/checkout@v4
+      - id: mvnw-test
+        shell: bash
+        name: analyse project for maven script
+        run: test -f mvnw && echo mvnw=true || echo mvnw=false >> $GITHUB_OUTPUT
+
+
