@@ -1,8 +1,7 @@
 name: Check project source for Maven
 on:
-  push:
-    branches-ignore:
-      - main
+  workflow_call:
+
 jobs:
   check-for-maven:
     outputs:
