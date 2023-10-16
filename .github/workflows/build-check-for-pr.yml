@@ -17,3 +17,7 @@ jobs:
     steps:
       - name: Checkout project source
         uses: actions/checkout@v4
+      - name: Run tests using gradle
+        if: ${{needs.check_for_gradle.outputs.gradlew}} == true
+        shell: bash
+        run: ./gradlew test
