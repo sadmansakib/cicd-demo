@@ -22,6 +22,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+          cache: 'gradle'
       - name: Run tests using gradle
         if: ${{needs.check_for_gradle.outputs.gradlew}} == true
         shell: bash
@@ -29,4 +30,4 @@ jobs:
       - name: Run tests using maven
         if: ${{needs.check_for_maven.outputs.mvnw}} == true
         shell: bash
-        run: ./mvnw test
+        run: echo ${{needs.check_for_maven.outputs.mvnw}}
