@@ -1,8 +1,6 @@
 name: Build test for pull request
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
 
 jobs:
   check_for_gradle:
