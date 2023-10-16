@@ -22,7 +22,7 @@ jobs:
       - name: Print gradle variable
         run: echo gradle value -> ${{needs.check_for_gradle.outputs.gradle}}
       - name: Print maven variable
-        run: echo maven value -> ${{needs.check_for_gradle.outputs.gradle}}
+        run: echo maven value -> ${{needs.check_for_maven.outputs.maven}}
 #      - name: Checkout project source
 #        uses: actions/checkout@v4
 #      - name: Setup java for gradle
