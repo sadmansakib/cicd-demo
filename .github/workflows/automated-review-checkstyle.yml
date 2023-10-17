@@ -7,6 +7,6 @@ jobs:
       - name: Check styling and conventions
         uses: dbelyaev/action-checkstyle@v0.9.6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           reporter: github-pr-review
           level: warning
