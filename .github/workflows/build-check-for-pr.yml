@@ -51,6 +51,5 @@ jobs:
     needs:
       - run_tests
     runs-on: ubuntu-latest
-    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') }}
     steps:
       - run: echo unit and integration tests passed
