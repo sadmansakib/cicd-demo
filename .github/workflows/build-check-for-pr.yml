@@ -46,3 +46,11 @@ jobs:
         if: ${{ needs.check_for_maven.outputs.maven == 'true' }}
         shell: bash
         run: ./mvnw test
+  check_tests_status:
+    name: Check Unit and Integration tests
+    needs:
+      - run_tests
+    runs-on: ubuntu-latest
+    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') }}
+    steps:
+      - run: echo unit and integration tests passed
