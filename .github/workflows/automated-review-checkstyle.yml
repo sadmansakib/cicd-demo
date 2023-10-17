@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check styling and conventions
-        uses: dbelyaev/action-checkstyle@master
+        uses: dbelyaev/action-checkstyle@v0.9.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
