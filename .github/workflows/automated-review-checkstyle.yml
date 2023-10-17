@@ -4,9 +4,11 @@ jobs:
   check_style:
     runs-on: ubuntu-latest
     steps:
-      - name: Check styling and conventions
-        uses: dbelyaev/action-checkstyle@v0.9.6
+      - uses: actions/checkout@v4
+      - uses: dbelyaev/action-checkstyle@v0.9.6
         with:
           github_token: ${{ github.token }}
           reporter: github-pr-review
-          level: warning
+          level: error
+          locale: "US"
+          reviewdog_flags: -filter-mode=file -fail-on-error
