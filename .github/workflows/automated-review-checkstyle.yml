@@ -1,12 +1,12 @@
 name: Automated review using static analysis
 on: workflow_call
-permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
 jobs:
   check_style:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: dbelyaev/action-checkstyle@v0.9.6
