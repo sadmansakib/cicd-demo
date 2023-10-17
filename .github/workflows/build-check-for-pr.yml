@@ -53,3 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo unit and integration tests passed
+  check_styles_and_conventions:
+    name: Automated review using static analysis (checkstyle)
+    uses: ./.github/workflows/automated-review-checkstyle.yml
+    needs:
+      - check_tests_status
