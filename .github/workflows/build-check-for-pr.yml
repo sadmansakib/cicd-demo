@@ -56,5 +56,9 @@ jobs:
   check_styles_and_conventions:
     name: Automated review using static analysis (checkstyle)
     uses: ./.github/workflows/automated-review-checkstyle.yml
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     needs:
       - check_tests_status

@@ -3,10 +3,6 @@ on: workflow_call
 jobs:
   check_style:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: dbelyaev/action-checkstyle@v0.9.6
