@@ -26,8 +26,6 @@ COPY --from=gradle ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=gradle ${DEPENDENCY}/BOOT-INF/classes /app
 RUN echo -e "#!/bin/bash \n java -cp app:app/lib/* ${main}" > ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
-#ENTRYPOINT ["java","-cp","app:app/lib/*","$main"]
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
 ENTRYPOINT ["./entrypoint.sh"]
 
 FROM --platform=linux/amd64 eclipse-temurin:17.0.8.1_1-jre-alpine as maven-build
@@ -36,7 +34,9 @@ ARG mainClass
 COPY --from=maven ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=maven ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=maven ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","$mainClass"]
+RUN echo -e "#!/bin/bash \n java -cp app:app/lib/* ${main}" > ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
 
 
 
