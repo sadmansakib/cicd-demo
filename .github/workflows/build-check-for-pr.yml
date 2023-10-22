@@ -1,0 +1,64 @@
+name: Build test for pull request
+on:
+  pull_request:
+
+jobs:
+  check_for_gradle:
+    name: Check for gradle script
+    uses: ./.github/workflows/analyse-for-gradle.yml
+  check_for_maven:
+    name: Check for maven script
+    uses: ./.github/workflows/analyse-for-maven.yml
+  run_tests:
+    name: Run unit and integration tests
+    strategy:
+      matrix:
+        java: [17]
+    runs-on: ubuntu-latest
+    env:
+      JDK_VERSION: ${{matrix.java}}
+    needs:
+      - check_for_gradle
+      - check_for_maven
+    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure') }}
+    steps:
+      - name: Checkout project source
+        uses: actions/checkout@v4
+      - name: Setup java for gradle
+        if: ${{ needs.check_for_gradle.outputs.gradle == 'true'}}
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: ${{matrix.java}}
+          cache: 'gradle'
+      - name: Setup java for maven
+        if: ${{ needs.check_for_maven.outputs.maven == 'true'}}
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: ${{matrix.java}}
+          cache: 'maven'
+      - name: Run tests using gradle
+        if: ${{ needs.check_for_gradle.outputs.gradle == 'true'}}
+        shell: bash
+        run: ./gradlew test
+      - name: Run tests using maven
+        if: ${{ needs.check_for_maven.outputs.maven == 'true' }}
+        shell: bash
+        run: ./mvnw test
+  check_tests_status:
+    name: Check Unit and Integration tests
+    needs:
+      - run_tests
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo unit and integration tests passed
+  check_styles_and_conventions:
+    name: Automated review using static analysis (checkstyle)
+    uses: ./.github/workflows/automated-review-checkstyle.yml
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    needs:
+      - check_tests_status

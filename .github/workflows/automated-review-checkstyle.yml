@@ -1,0 +1,13 @@
+name: Automated review using static analysis
+on: workflow_call
+jobs:
+  check_style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          level: error
+          reviewdog_flags: -filter-mode=file -fail-on-error
