@@ -18,7 +18,7 @@ jobs:
         shell: bash
         name: analyse project for maven script
         run: |
-          if test -f "mvnw"
+          if test -f "pom.xml"
           then
             echo "maven=true" >> $GITHUB_OUTPUT
           else
