@@ -11,7 +11,8 @@ jobs:
   check_for_maven:
     name: Check for maven script
     uses: ./.github/workflows/analyse-for-maven.yml
-  check_style:
+  deploy:
+    name: push to registry
     runs-on: ubuntu-latest
     needs:
       - check_for_gradle
