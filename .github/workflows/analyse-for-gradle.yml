@@ -18,7 +18,7 @@ jobs:
         shell: bash
         name: analyse project for gradle script
         run: |
-          if test -f "gradlew"
+          if test -f "build.gradle"
           then
             echo "gradle=true" >> $GITHUB_OUTPUT
           else
