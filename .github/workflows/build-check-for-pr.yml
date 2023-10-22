@@ -11,7 +11,12 @@ jobs:
     uses: ./.github/workflows/analyse-for-maven.yml
   run_tests:
     name: Run unit and integration tests
+    strategy:
+      matrix:
+        java: [17]
     runs-on: ubuntu-latest
+    env:
+      JDK_VERSION: ${{matrix.java}}
     needs:
       - check_for_gradle
       - check_for_maven
@@ -24,14 +29,14 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17
+          java-version: ${{matrix.java}}
           cache: 'gradle'
       - name: Setup java for maven
         if: ${{ needs.check_for_maven.outputs.maven == 'true'}}
         uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17
+          java-version: ${{matrix.java}}
           cache: 'maven'
       - name: Run tests using gradle
         if: ${{ needs.check_for_gradle.outputs.gradle == 'true'}}
@@ -41,3 +46,19 @@ jobs:
         if: ${{ needs.check_for_maven.outputs.maven == 'true' }}
         shell: bash
         run: ./mvnw test
+  check_tests_status:
+    name: Check Unit and Integration tests
+    needs:
+      - run_tests
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo unit and integration tests passed
+  check_styles_and_conventions:
+    name: Automated review using static analysis (checkstyle)
+    uses: ./.github/workflows/automated-review-checkstyle.yml
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    needs:
+      - check_tests_status
